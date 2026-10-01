@@ -32,6 +32,7 @@
 | **Runtime** | `Runtime` | — | Le moteur qui fait « réfléchir » une Owl : `native` (AI SDK), `hermes`, `goose`, `claude-code` | Moteur (le processus Owlcy) |
 | **Moteur** | `engine` | — | Le processus TypeScript qui exécute pipelines, runtimes et permissions (sidecar) | Runtime |
 | **Shell** | `shell` | — | La partie Rust/Tauri : fenêtres, hotkeys, secrets, supervision du moteur | L'outil `shell.run` |
+| **Fonction de plateforme** | `PlatformFeature` | — | Une fonction du shell qui dépend de l'OS (curseur global, fenêtre active, hotkeys, tray…), déclarée disponible ou non au démarrage | Permission (le droit d'une Owl, pas une possibilité de l'OS) |
 | **Carnet** | `Notebook` | carnet | La mémoire courte d'une Owl, toujours dans le prompt, **plafonnée** | Archive |
 | **Archive** | `Archive` | historique | Tous les runs et conversations, en SQLite FTS5, cherchés à la demande | Carnet |
 | **Profil utilisateur** | `UserProfile` | — | `USER.md` : préférences de l'utilisateur, partagées entre Owls | — |

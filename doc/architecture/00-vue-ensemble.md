@@ -38,7 +38,7 @@
 
 | Couche | Techno | Pourquoi |
 |---|---|---|
-| **Shell** | Rust / Tauri 2 | Ce qui touche l'OS : fenêtres transparentes, click-through (hit-test ~60 fps + `setIgnoreCursorEvents`), hotkeys, secrets, fenêtre active. Mince et stable. |
+| **Shell** | Rust / Tauri 2 | Ce qui touche l'OS : fenêtres transparentes, click-through (hit-test ~60 fps + `setIgnoreCursorEvents`), hotkeys, secrets, fenêtre active. Mince et stable. Ces fonctions de plateforme sont **optionnelles** : le shell déclare celles qui sont disponibles ([`techno/04`](../techno/04-portabilite.md) §8). |
 | **Moteur** | TypeScript (sidecar compilé en binaire unique) | Là où on itère : pipelines, agents, triggers. SDK MCP Tier 1 + AI SDK 7. Même langage que l'UI. |
 | **UI** | React + xyflow + SVG | Mascotte, bulles, dashboard, éditeurs. |
 | **Outils internes** | TypeScript, dans le moteur | `owl.say`, `fs.*`, `llm.*`, `http.fetch` : sans processus séparé (un processus MCP ≈ 50 Mo, test T1). |

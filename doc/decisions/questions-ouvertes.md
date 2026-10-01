@@ -31,3 +31,4 @@ Recommandations issues de la veille — **à valider par Paul**, puis à transfo
 | Q24 | **v4** — Capacité réelle (points par sprint) | 🟠 | 12 points par défaut, recalculée après le Sprint 1 | gestion/00 |
 | Q25 | **v4** — Sprint 5 sur les fêtes de fin d'année : décaler ? | 🟢 | À décider au planning du Sprint 4 | gestion/03 |
 | Q26 | **v5** — Modèle par défaut des étapes `llm:` et du mode agent | 🔴 | W4 : `qwen3:4b` local juste (simple/choix 100 %) mais ~1,5 min par appel sur 4 Go de VRAM ; chaîné en timeout → **agent en cloud par défaut**, local pour les étapes planifiées. Choix du fournisseur cloud à faire (ADR) | techno/03 W4 |
+| Q27 | **v5** — macOS / Linux : quand et à quel niveau ? | 🟢 | Après la v0.4. macOS faisable (NSPanel, Developer ID, pas d'App Store) ; Linux X11/XWayland d'abord, pas de promesse Wayland natif. Dès le S2 : fonctions de plateforme optionnelles | techno/04 |
