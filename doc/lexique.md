@@ -70,10 +70,12 @@
 
 | Terme | Définition |
 |---|---|
-| **Epic** | Un grand bloc fonctionnel (ex. « E2 — Perchoir & chouette »). Une issue GitHub avec le label `epic` |
+| **Epic** | Un grand bloc fonctionnel (ex. « E2 — Perchoir & chouette »). Une issue GitHub avec le label `type:epic` ; ses items en sont les sous-issues |
 | **US** (User Story) | Un besoin utilisateur livrable en un sprint, avec critères d'acceptation |
 | **Spike** | Une US d'exploration technique dont le livrable est un résultat chiffré et une décision |
-| **Sprint** | 2 semaines. Un milestone GitHub `Sprint N — <objectif>` |
+| **Sprint** | 2 semaines, défini par son résultat. Une itération du champ *Sprint* du GitHub Project : `S{n} · <résultat>` |
+| **Résultat** | Ce que je peux voir et utiliser à la fin d'un sprint, de bout en bout (« La chouette apparaît sur mon bureau »), avec sa démo de revue |
+| **Release** | Une version publiée (v0.1.0 → v0.4.0) qui clôt plusieurs sprints. Une milestone GitHub `vX.Y.Z — <nom>` |
 | **DoR / DoD** | *Definition of Ready* / *Definition of Done* (voir [`gestion/00-methodologie.md`](gestion/00-methodologie.md)) |
 | **ADR** | *Architecture Decision Record* : une décision technique écrite (`decisions/ADR-xxx`) |
 | **Go / no-go** | La décision prise à la fin d'un spike |

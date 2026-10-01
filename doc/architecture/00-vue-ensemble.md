@@ -67,7 +67,7 @@
 - `WS_EX_NOACTIVATE` + `ShowWindow(SW_SHOWNOACTIVATE)` : `focusable(false)` seul ne suffit pas (tao PR #1358, ouverte le 30/09/2026).
 - Propriété `NonRudeHWND`, décalage des bords, « topmost » réaffirmé seulement sur événement.
 - Click-through : hit-test à ~60 Hz côté Rust sur les zones envoyées par le front (`set_ignore_cursor_events`).
-- Tout cela est implémenté dans le spike W1 (`poc/windows/w1-perchoir-tauri`) : à valider avant le Sprint 2.
+- Tout cela est implémenté dans le spike W1 (`poc/windows/w1-perchoir-tauri`) : à valider avant le Sprint 1 (le Perchoir y est livré).
 
 ## Canal shell ↔ moteur
 

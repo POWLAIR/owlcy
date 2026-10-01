@@ -1,0 +1,39 @@
+name: User story
+description: Un besoin utilisateur livrable en un sprint
+title: "US-XXX · "
+labels: ["type:us"]
+body:
+  - type: markdown
+    attributes:
+      value: "Vocabulaire : [doc/lexique.md](../blob/main/doc/lexique.md). Si l'item est planifié, l'ajouter aussi dans `gestion/backlog.yaml`."
+  - type: textarea
+    id: story
+    attributes:
+      label: Histoire
+      description: "En tant que …, je veux …, afin de …"
+      placeholder: "En tant qu'utilisateur, je veux …, afin de …"
+    validations: { required: true }
+  - type: textarea
+    id: ac
+    attributes:
+      label: Critères d'acceptation
+      description: Vérifiables par oui / non
+      value: |
+        - [ ]
+        - [ ]
+    validations: { required: true }
+  - type: dropdown
+    id: points
+    attributes:
+      label: Estimation (points)
+      options: ["1", "2", "3", "5", "8", "À estimer"]
+    validations: { required: true }
+  - type: dropdown
+    id: epic
+    attributes:
+      label: Epic
+      options: [E0 Labo & décisions, E1 Fondations, E2 Perchoir & chouette, E3 Moteur & intégrations, E4 Pipelines, E5 La Veilleuse, E6 Sécurité & secrets, E7 Dashboard, E8 Factory & déclencheurs, E9 Mode agent & skills, E10 Mécano, E11 Design avancé, E12 Runtimes externes, E13 Mémoire & Forgeronne, E14 Partage]
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes techniques / dépendances

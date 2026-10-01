@@ -74,9 +74,9 @@ L'avantage mémoire de Tauri est réel sur macOS et Linux, pas sur Windows (Q22,
 - **macOS : faisable.** Le Perchoir devient un NSPanel. Le compagnon natif existe déjà (Coucou, en Swift) et des desktop pets Tauri tournent sur macOS ([deskpet](https://github.com/Scyyyy4/deskpet), [tutoriel CrabNebula](https://crabnebula.dev/blog/building-a-desktop-pet-with-tauri/)). Coûts : compte Developer ID, signature du sidecar, pas d'App Store, permission « Enregistrement de l'écran » si on veut le titre de la fenêtre active.
 - **Linux : difficile, par niveaux.** On vise **X11 / XWayland d'abord**, où tout fonctionne. On ne promet pas Wayland natif. Sur KDE et wlroots, il faudrait layer-shell, les portails et un script KWin ; sur GNOME, XWayland plus une extension optionnelle. Signal d'alerte : Shijima-Qt, un desktop pet Linux, a été abandonné par son auteur sur ces problèmes.
 
-## 8. Règle de conception (dès le Sprint 2)
+## 8. Règle de conception (dès le Sprint 1)
 
-Coût quasi nul maintenant, et évite une réécriture du shell plus tard :
+Coût quasi nul maintenant, et évite une réécriture du shell plus tard. Ces règles sont dans les critères d'acceptation de US-012, US-020, US-021, US-024, US-030, US-013 et US-071 :
 
 1. **Fonctions de plateforme optionnelles.** Le curseur global, la fenêtre active, les hotkeys globales, le tray, la position de fenêtre et le « toujours au-dessus » sont des fonctions de plateforme. Au démarrage, le shell déclare à l'UI et au moteur celles qui sont disponibles. Rien ne suppose qu'elles le sont. Exemple, US-021 : sans curseur global, les yeux suivent le curseur seulement au survol du Perchoir.
 2. **Le code du Perchoir passe par une interface par plateforme** (et par type de session sous Linux), au lieu d'être dispersé dans `main.rs`.

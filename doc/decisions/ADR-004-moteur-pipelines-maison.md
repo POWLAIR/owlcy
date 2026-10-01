@@ -31,4 +31,4 @@ Les pipelines YAML d'Owlcy (voir [feature/02](../feature/02-pipelines-factory.md
   - Le dédoublonnage `collect.output[link in $not(previous.output.links)]` renvoie `undefined` **sans erreur**. La forme correcte est `collect.output.*[$not(link in $$.previous.output.links)]` (`$$` est nécessaire dans un prédicat).
 - **Règle pour le moteur** : une expression qui renvoie `undefined` dans `with:`, `when:`, `until:` ou `validate:` doit faire échouer l'étape de façon explicite, jamais passer en silence.
 - La persistance de l'état par étape (Q15) est à notre charge : prévue au Sprint 4.
-- **Critère de réexamen** : si à la fin du Sprint 4 (Pipelines) l'interpréteur dépasse ~1 000 lignes hors tests, ou si la reprise après redémarrage devient un chantier à elle seule, refaire un spike avec Mastra.
+- **Critère de réexamen** : si à la fin du Sprint 4 (étapes tool, llm et human livrées) l'interpréteur dépasse ~1 000 lignes hors tests, ou si la reprise après redémarrage devient un chantier à elle seule, refaire un spike avec Mastra.
