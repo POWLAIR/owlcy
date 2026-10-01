@@ -1,0 +1,20 @@
+{
+  "name": "owlcy-t5-t7",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "t5": "bun t5-aisdk-ollama-mcp.ts",
+    "t6": "bun t6-jsonata.ts",
+    "t7": "bun t7-mcp-v2-mrtr.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/mcp": "^2.0.65",
+    "@modelcontextprotocol/client": "^2.2.0",
+    "@modelcontextprotocol/sdk": "^1.31.0",
+    "@modelcontextprotocol/server": "^2.2.0",
+    "ai": "^7.0.126",
+    "ai-sdk-ollama": "^4.4.0",
+    "jsonata": "^2.2.2",
+    "zod": "^4.6.5"
+  }
+}

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; background: transparent; overflow: hidden; font-family: "Segoe UI", system-ui, sans-serif; user-select: none; }
+  #bubble { position: absolute; left: 12px; top: 8px; width: 220px; padding: 10px 12px; border-radius: 16px;
+            background: #1E1B2E; color: #F2EEFF; font-size: 13px; box-shadow: 0 4px 16px #0006; display: none; }
+  #bubble.on { display: block; }
+  #bubble button { margin: 8px 6px 0 0; border: 0; border-radius: 10px; padding: 5px 10px; cursor: pointer; }
+  #ok { background: #7C6CF2; color: #fff } #no { background: #3a3550; color: #ddd }
+  #owl { position: absolute; left: 60px; bottom: 6px; cursor: pointer; }
+  #fps { position: absolute; right: 4px; bottom: 2px; font-size: 10px; color: #fff8; text-shadow: 0 0 2px #000; }
+</style>
+</head>
+<body>
+<div id="bubble">Je peux ranger <b>facture.pdf</b> dans Documents ?<br>
+  <button id="ok">Autoriser</button><button id="no">Refuser</button></div>
+<svg id="owl" viewBox="0 0 200 220" width="140" height="154">
+  <g id="body" style="transform-origin:100px 200px">
+    <path d="M52 60 L40 34 L78 48 Z" fill="#6B5B95"/><path d="M148 60 L160 34 L122 48 Z" fill="#6B5B95"/>
+    <rect x="30" y="40" width="140" height="160" rx="52" fill="#6B5B95"/>
+    <ellipse cx="100" cy="150" rx="46" ry="42" fill="#E8DFF5" opacity=".9"/>
+    <circle cx="72" cy="95" r="27" fill="#E8DFF5"/><circle cx="128" cy="95" r="27" fill="#E8DFF5"/>
+    <circle cx="72" cy="95" r="17" fill="#F5B841"/><circle cx="128" cy="95" r="17" fill="#F5B841"/>
+    <circle class="pupil" cx="72" cy="95" r="7.6" fill="#1b1026"/><circle class="pupil" cx="128" cy="95" r="7.6" fill="#1b1026"/>
+    <rect class="lid" x="53" y="76" width="38" height="0" fill="#6B5B95" rx="4"/>
+    <rect class="lid" x="109" y="76" width="38" height="0" fill="#6B5B95" rx="4"/>
+    <path d="M92 118 L108 118 L100 132 Z" fill="#E89B3C"/>
+  </g>
+</svg>
+<div id="fps"></div>
+<script>
+const { invoke } = window.__TAURI__.core;
+const { listen } = window.__TAURI__.event;
+const owl = document.getElementById("owl"), bubble = document.getElementById("bubble");
+let emote = "idle", cursor = { x: 130, y: 100 }, nextBlink = performance.now() + 2000;
+
+// Zones cliquables → Rust (le reste de la fenêtre laisse passer les clics)
+function reportRegions() {
+  const rs = [owl, bubble].filter(e => e.offsetParent !== null || e === owl)
+    .map(e => { const b = e.getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height }; });
+  invoke("set_hit_regions", { regions: rs });
+}
+new ResizeObserver(reportRegions).observe(document.body);
+
+listen("cursor", e => { cursor = { x: e.payload[0], y: e.payload[1] }; });
+
+owl.addEventListener("click", () => { bubble.classList.toggle("on"); emote = bubble.classList.contains("on") ? "ask" : "idle"; reportRegions(); });
+document.getElementById("ok").onclick = () => { bubble.classList.remove("on"); emote = "happy"; reportRegions(); setTimeout(() => emote = "idle", 2000); };
+document.getElementById("no").onclick = () => { bubble.classList.remove("on"); emote = "dizzy"; reportRegions(); setTimeout(() => emote = "idle", 2000); };
+
+let running = true, frames = 0, lastFps = performance.now();
+function frame(t) {
+  const b = owl.getBoundingClientRect(), cx = b.x + b.width / 2, cy = b.y + b.height * .43;
+  const ang = Math.atan2(cursor.y - cy, cursor.x - cx), d = Math.min(1, Math.hypot(cursor.x - cx, cursor.y - cy) / 400) * 7.6;
+  document.querySelectorAll(".pupil").forEach(p => p.setAttribute("transform", `translate(${Math.cos(ang) * d} ${Math.sin(ang) * d})`));
+  let dy = 0, rot = 0;
+  if (emote === "happy") dy = -Math.abs(Math.sin(t / 180)) * 10;
+  if (emote === "dizzy") rot = Math.sin(t / 120) * 10;
+  if (emote === "ask") rot = -8;
+  document.getElementById("body").style.transform = `translateY(${dy}px) rotate(${rot}deg) scale(${1 + Math.sin(t / 900) * .02})`;
+  let lid = 0;
+  if (t > nextBlink) { const k = (t - nextBlink) / 140; lid = k < 1 ? k : k < 2 ? 2 - k : 0; if (k >= 2) nextBlink = t + 2000 + Math.random() * 4000; }
+  document.querySelectorAll(".lid").forEach(l => l.setAttribute("height", 38 * lid));
+  frames++; if (t - lastFps > 1000) { document.getElementById("fps").textContent = frames + " fps"; frames = 0; lastFps = t; }
+  if (running) requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+document.addEventListener("visibilitychange", () => { running = !document.hidden; if (running) requestAnimationFrame(frame); });
+reportRegions();
+</script>
+</body>
+</html>

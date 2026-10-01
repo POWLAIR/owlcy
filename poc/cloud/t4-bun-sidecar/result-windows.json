@@ -1,0 +1,12 @@
+{
+  "machine": "Dell Precision 3490, Windows 11 Pro, 32 Go",
+  "bun": "1.4.0, compilé depuis WSL avec --target=bun-windows-x64",
+  "runs": [
+    { "cold_start_to_first_reply_ms": 96.3, "private_mb": 74.6, "working_set_mb": 26.7, "rtt_ms_p50": 0.03, "rtt_ms_p95": 0.047 },
+    { "cold_start_to_first_reply_ms": 24.0, "private_mb": 74.6, "working_set_mb": 26.3, "rtt_ms_p50": 0.029, "rtt_ms_p95": 0.041 },
+    { "cold_start_to_first_reply_ms": 23.7, "private_mb": 75.6, "working_set_mb": 26.4, "rtt_ms_p50": 0.029, "rtt_ms_p95": 0.042 }
+  ],
+  "exe_mb": 84.7,
+  "exe_xz9_mb": 29.9,
+  "note": "1er lancement ~96 ms (probablement analyse Defender d'un .exe nouveau), ensuite ~24 ms"
+}

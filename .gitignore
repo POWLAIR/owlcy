@@ -1,0 +1,25 @@
+# Rust / Tauri
+target/
+**/src-tauri/gen/
+**/src-tauri/icons/
+
+# Node / Bun
+node_modules/
+dist/
+*.exe
+poc/cloud/t4-bun-sidecar/owlcy-engine
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Divers
+.DS_Store
+Thumbs.db
+.env
+*.log
+
+# Outillage local
+.claude/settings.local.json
+.cursor/

@@ -1,0 +1,31 @@
+{
+  "chromium_version": "141.0.7390.37",
+  "3_chouettes_idle_60fps": {
+    "task_ms_per_s": 37.23,
+    "script_ms_per_s": 8.24,
+    "layout_ms_per_s": 3.8,
+    "recalc_style_ms_per_s": 5.18,
+    "js_heap_mb": 1.82
+  },
+  "3_chouettes_suivi_curseur": {
+    "task_ms_per_s": 42.44,
+    "script_ms_per_s": 7.03,
+    "layout_ms_per_s": 3.76,
+    "recalc_style_ms_per_s": 6.03,
+    "js_heap_mb": 1.58
+  },
+  "3_chouettes_emotes_actives": {
+    "task_ms_per_s": 36.48,
+    "script_ms_per_s": 7.38,
+    "layout_ms_per_s": 3.86,
+    "recalc_style_ms_per_s": 5.28,
+    "js_heap_mb": 1.49
+  },
+  "animation_en_pause": {
+    "task_ms_per_s": 0.1,
+    "script_ms_per_s": 0.0,
+    "layout_ms_per_s": 0.0,
+    "recalc_style_ms_per_s": 0.0,
+    "js_heap_mb": 1.49
+  }
+}

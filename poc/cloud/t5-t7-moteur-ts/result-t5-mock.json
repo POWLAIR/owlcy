@@ -1,0 +1,54 @@
+{
+  "model": "mock",
+  "mcp_connect_ms": 80.9,
+  "mcp_tools": [
+    "list_files",
+    "move_file"
+  ],
+  "turn1_ms": 14,
+  "turn1_tool_calls": [
+    {
+      "tool": "list_files",
+      "input": {}
+    },
+    {
+      "tool": "move_file",
+      "input": {
+        "file": "notes.txt",
+        "folder": "archive"
+      }
+    }
+  ],
+  "approval_requested": [
+    {
+      "tool": "move_file",
+      "input": {
+        "file": "notes.txt",
+        "folder": "archive"
+      }
+    }
+  ],
+  "move_executed_before_approval": false,
+  "turn2_ms": 5,
+  "final_text": "C'est fait : notes.txt est dans archive/.",
+  "usage": {
+    "inputTokens": 1,
+    "inputTokenDetails": {
+      "noCacheTokens": 1,
+      "cacheReadTokens": 0,
+      "cacheWriteTokens": 0
+    },
+    "outputTokens": 1,
+    "outputTokenDetails": {
+      "textTokens": 1,
+      "reasoningTokens": 0
+    },
+    "totalTokens": 2
+  },
+  "files_after": [
+    "todo.md",
+    "photo.png"
+  ],
+  "moved": true,
+  "verdict": "GO"
+}

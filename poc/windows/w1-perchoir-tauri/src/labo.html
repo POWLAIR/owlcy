@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><title>Labo MCP Apps</title>
+<style>body{font-family:"Segoe UI",sans-serif;background:#1E1B2E;color:#eee;padding:12px}pre{background:#0006;padding:8px;border-radius:8px}</style></head>
+<body>
+<h3>Labo — carte MCP Apps dans WebView2</h3>
+<p>Vérifie qu'une vue <code>srcdoc</code> sandboxée fonctionne sous le protocole Tauri et avec la CSP de l'app.</p>
+<div id="slot"></div>
+<pre id="out">en attente…</pre>
+<script>
+const VIEW = `<!doctype html><meta charset="utf-8"><body style="font-family:sans-serif;background:#FAF7FF;margin:8px">
+<b>Carte de test</b><div id="r"></div><script>
+(async()=>{const p={};
+try{p.parentDom=!!parent.document.body}catch(e){p.parentDom="bloqué"}
+try{await fetch("https://example.org");p.fetch="autorisé"}catch(e){p.fetch="bloqué"}
+try{localStorage.setItem("x","1");p.localStorage="autorisé"}catch(e){p.localStorage="bloqué"}
+p.origin=location.origin;document.getElementById("r").textContent=JSON.stringify(p);
+parent.postMessage({method:"test/probe",params:p},"*");})();<\/script>`;
+const f = document.createElement("iframe");
+f.setAttribute("sandbox", "allow-scripts");
+f.style = "width:500px;height:120px;border:0;border-radius:10px";
+f.srcdoc = VIEW;
+document.getElementById("slot").appendChild(f);
+addEventListener("message", e => {
+  if (e.source !== f.contentWindow) return;
+  document.getElementById("out").textContent = "Résultat : " + JSON.stringify(e.data.params, null, 2) +
+    "\n\nAttendu : parentDom=bloqué, localStorage=bloqué, script exécuté (sinon : la CSP bloque les scripts srcdoc).";
+});
+setTimeout(() => { if (document.getElementById("out").textContent === "en attente…")
+  document.getElementById("out").textContent = "ÉCHEC : la vue n'a rien renvoyé en 3 s (script bloqué par la CSP ?)"; }, 3000);
+</script>
+</body></html>

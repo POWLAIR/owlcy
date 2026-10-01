@@ -1,0 +1,10 @@
+{
+  "machine": "Dell Precision 3490, Windows 11 Pro, WSL2 Ubuntu (networkingMode=mirrored, VM déjà démarrée)",
+  "python": "3.12.10 (Windows) / python3 (WSL)",
+  "bench": [
+    { "cas": "Python natif Windows", "demarrage_froid_ms": 129.8, "rtt_p50_ms": 0.146, "rtt_p95_ms": 0.269 },
+    { "cas": "Python dans WSL via wsl.exe", "demarrage_froid_ms": 318.4, "rtt_p50_ms": 0.434, "rtt_p95_ms": 1.638 }
+  ],
+  "fs_1000_ecritures_1000_lectures_ms": { "linux_home": 144, "mnt_c": 16518 },
+  "verdict": "GO (p95 1,6 ms < 5 ms ; démarrage 318 ms < 1,5 s, VM WSL déjà lancée)"
+}

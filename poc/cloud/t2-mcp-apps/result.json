@@ -1,0 +1,16 @@
+{
+  "tool_meta_ui_resourceUri": "ui://veille/digest",
+  "resource_mime": "text/html;profile=mcp-app",
+  "sandbox_probe": {
+    "parentDom": "bloqué",
+    "fetch": "bloqué",
+    "localStorage": "bloqué",
+    "theme": "dark"
+  },
+  "items_after_initial_result": 3,
+  "tools_call_ms": [
+    8.7
+  ],
+  "items_after_button_tools_call": 5,
+  "chromium": "141.0.7390.37"
+}

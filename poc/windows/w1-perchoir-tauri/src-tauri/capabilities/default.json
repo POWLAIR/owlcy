@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Permissions minimales du spike",
+  "windows": ["perch", "labo"],
+  "permissions": ["core:default"]
+}

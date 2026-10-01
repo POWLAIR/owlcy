@@ -1,0 +1,19 @@
+{
+  "startup_total_s": 3.923,
+  "startup_per_server_ms": 392.3,
+  "protocol_version": "2025-11-25",
+  "tools": [
+    "echo",
+    "fetch_items",
+    "move_file"
+  ],
+  "servers_rss_mb_each_median": 54.2,
+  "servers_rss_mb_total": 541.4,
+  "echo_latency_ms_p50": 2.48,
+  "echo_latency_ms_p95": 3.23,
+  "fetch_500_items_ms": 17.0,
+  "fetch_structured_ok": true,
+  "parallel_call_all_servers_ms": 22.0,
+  "elicitation_result": "moved",
+  "elicitation_roundtrip_ms": 4.1
+}

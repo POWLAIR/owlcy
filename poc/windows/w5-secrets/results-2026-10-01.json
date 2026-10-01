@@ -1,0 +1,9 @@
+{
+  "backend": "keyring.backends.Windows.WinVaultKeyring",
+  "ecriture_ms": 5.2,
+  "entree_visible_cmdkey": "LegacyGeneric:target=owlcy-test, utilisateur notion",
+  "lecture": "OK",
+  "suppression": "OK, plus aucune entrée owlcy-test dans cmdkey",
+  "note": "test_keyring.py plante (UnicodeEncodeError cp1252) si sa sortie est redirigée : run-w5.ps1 force PYTHONIOENCODING=utf-8",
+  "verdict": "GO"
+}

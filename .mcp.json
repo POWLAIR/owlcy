@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "ironbee-dt-browser": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@ironbee-ai/devtools"
+      ]
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "jsonata": "2.2.2",
+  "results": [
+    {
+      "where": "l.24 foreach",
+      "expr": "params.sources",
+      "ok": true,
+      "value": [
+        "https://a.dev/rss",
+        "https://b.dev/rss"
+      ]
+    },
+    {
+      "where": "l.26 with.url",
+      "expr": "item",
+      "ok": true,
+      "value": "https://a.dev/rss"
+    },
+    {
+      "where": "l.29 $flatten",
+      "expr": "$flatten(collect.output)",
+      "ok": false,
+      "error": "T1006 Attempted to invoke a non-function"
+    },
+    {
+      "where": "l.29 équivalent natif",
+      "expr": "collect.output.*",
+      "ok": true,
+      "value": 3
+    },
+    {
+      "where": "l.35 when $count",
+      "expr": "$count(digest.output) > 0",
+      "ok": true,
+      "value": true
+    },
+    {
+      "where": "l.38 with.database",
+      "expr": "params.notion_db",
+      "ok": true,
+      "value": "db_123"
+    },
+    {
+      "where": "l.118 dédoublonnage (doc)",
+      "expr": "collect.output[link in $not(previous.output.links)]",
+      "ok": true
+    },
+    {
+      "where": "l.118 dédoublonnage (corrigé)",
+      "expr": "collect.output.*[$not(link in $$.previous.output.links)]",
+      "ok": true,
+      "value": 2
+    },
+    {
+      "where": "l.121 retry.until",
+      "expr": "$count(digest.output.points) <= 5",
+      "ok": true,
+      "value": true
+    },
+    {
+      "where": "l.123 validate",
+      "expr": "$count(digest.output.points) > 0",
+      "ok": true,
+      "value": true
+    }
+  ],
+  "eval_us_per_call": 25
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "runtime": "bun compiled",
+    "cold_start_to_first_reply_ms": 18.9,
+    "rss_mb": 73.6,
+    "rtt_ms_p50": 0.023,
+    "rtt_ms_p95": 0.14
+  },
+  {
+    "runtime": "node 22 script",
+    "cold_start_to_first_reply_ms": 32.4,
+    "rss_mb": 54.8,
+    "rtt_ms_p50": 0.042,
+    "rtt_ms_p95": 0.074
+  },
+  {
+    "runtime": "bun script",
+    "cold_start_to_first_reply_ms": 25.7,
+    "rss_mb": 59.4,
+    "rtt_ms_p50": 0.066,
+    "rtt_ms_p95": 1.248
+  }
+]

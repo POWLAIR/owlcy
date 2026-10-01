@@ -1,0 +1,15 @@
+{
+  "machine": "Dell Precision 3490, RTX 500 Ada Laptop 4 Go, 32 Go RAM, sur secteur",
+  "ollama": "0.35.0",
+  "statut": "arrêté volontairement : trop lent sur ce GPU, pris comme résultat",
+  "modeles_telecharges": ["qwen3:4b", "qwen3.5:4b", "granite4:3b", "ministral-3:3b", "gemma4:e4b", "qwen3:8b"],
+  "qwen3:4b": {
+    "repartition": "3,5 Go chargé, 36 % CPU / 64 % GPU (num_ctx 4096)",
+    "debit_tokens_s": 7.7,
+    "gpu": "12 % d'utilisation, 210 MHz, P4, 12,6 W : le GPU attend les couches sur CPU",
+    "think_true": { "essais": 16, "ok": 15, "detail": "simple 6/6, choix 6/6, parallèle 3/3, chaîné 0/1 (timeout 300 s)", "duree_moyenne_min": 1.7 },
+    "think_false": { "essais": 12, "ok": 12, "detail": "simple 6/6, choix 6/6", "duree_moyenne_min": 1.5,
+                     "note": "qwen3:4b (hybride) ignore think:false : le raisonnement passe dans content (585 tokens pour un appel weather)" }
+  },
+  "non_mesures": ["qwen3.5:4b", "granite4:3b", "ministral-3:3b", "gemma4:e4b", "qwen3:8b", "refus d'injection"]
+}

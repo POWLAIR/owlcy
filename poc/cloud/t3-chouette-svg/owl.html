@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Owlcy — prototype chouette SVG</title>
+<style>
+  html,body{margin:0;background:transparent;font-family:system-ui,sans-serif}
+  body.debug{background:#1E1B2E;color:#eee}
+  .row{display:flex;gap:24px;padding:16px;flex-wrap:wrap}
+  figure{margin:0;text-align:center}
+  figcaption{font-size:12px;opacity:.7}
+</style>
+</head>
+<body class="debug">
+<div class="row" id="stage"></div>
+<script>
+/* Chouette procédurale : un skin = des paramètres (cf. design/01-systeme-mascottes.md) */
+const SKINS = {
+  owlcy:   { body:"#6B5B95", belly:"#E8DFF5", eye:"#F5B841", beak:"#E89B3C", roundness:.8, tufts:.6, eyeSize:1.0 },
+  veilleuse:{ body:"#2E3A59", belly:"#C9D6F2", eye:"#FFD166", beak:"#F4A261", roundness:.9, tufts:.4, eyeSize:1.15 },
+  mecano:   { body:"#8A5A3C", belly:"#F1E3D3", eye:"#7FD1B9", beak:"#D98C3F", roundness:.6, tufts:.8, eyeSize:.9 },
+};
+
+function owlSVG(id, s){
+  const r = 20 + s.roundness*40;           // rayon des coins du corps
+  const tuft = 10 + s.tufts*22;            // hauteur des aigrettes
+  const er = 17*s.eyeSize;                 // rayon des yeux
+  return `
+  <svg id="${id}" viewBox="0 0 200 220" width="140" height="154" aria-label="chouette">
+    <g class="owl" style="transform-origin:100px 200px">
+      <path class="tuft" d="M52 ${60} L40 ${60-tuft} L78 48 Z" fill="${s.body}"/>
+      <path class="tuft" d="M148 ${60} L160 ${60-tuft} L122 48 Z" fill="${s.body}"/>
+      <rect x="30" y="40" width="140" height="160" rx="${r}" fill="${s.body}"/>
+      <ellipse cx="100" cy="150" rx="46" ry="42" fill="${s.belly}" opacity=".9"/>
+      <g class="face">
+        <circle cx="72" cy="95" r="${er+10}" fill="${s.belly}"/>
+        <circle cx="128" cy="95" r="${er+10}" fill="${s.belly}"/>
+        <g class="eyeL"><circle cx="72" cy="95" r="${er}" fill="${s.eye}"/><circle class="pupil" cx="72" cy="95" r="${er*.45}" fill="#1b1026"/></g>
+        <g class="eyeR"><circle cx="128" cy="95" r="${er}" fill="${s.eye}"/><circle class="pupil" cx="128" cy="95" r="${er*.45}" fill="#1b1026"/></g>
+        <rect class="lidL" x="${72-er-2}" y="${95-er-2}" width="${2*er+4}" height="0" fill="${s.body}" rx="4"/>
+        <rect class="lidR" x="${128-er-2}" y="${95-er-2}" width="${2*er+4}" height="0" fill="${s.body}" rx="4"/>
+        <path d="M92 118 L108 118 L100 132 Z" fill="${s.beak}"/>
+      </g>
+    </g>
+  </svg>`;
+}
+
+const owls = [];
+for (const [name, skin] of Object.entries(SKINS)) {
+  const fig = document.createElement("figure");
+  fig.innerHTML = owlSVG("owl-"+name, skin) + `<figcaption>${name} · <span class="emote">idle</span></figcaption>`;
+  document.getElementById("stage").appendChild(fig);
+  const el = fig.querySelector("svg");
+  owls.push({ el, skin, emote:"idle", er:17*skin.eyeSize, nextBlink: performance.now()+1000+Math.random()*3000, label: fig.querySelector(".emote") });
+}
+
+let mouse = {x:0,y:0};
+addEventListener("mousemove", e => mouse = {x:e.clientX, y:e.clientY});
+
+/* Boucle d'animation — coupée quand la fenêtre est cachée (règle « zéro CPU au repos ») */
+let running = true, rafId = null;
+function frame(t){
+  for (const o of owls){
+    const g = o.el.querySelector(".owl");
+    const breathe = 1 + Math.sin(t/900)*0.02;
+    let rot = 0, dy = 0;
+    if (o.emote==="happy") dy = -Math.abs(Math.sin(t/180))*10;
+    if (o.emote==="dizzy") rot = Math.sin(t/120)*10;
+    if (o.emote==="thinking") rot = Math.sin(t/700)*4;
+    g.style.transform = `translateY(${dy}px) rotate(${rot}deg) scale(${breathe})`;
+    // yeux qui suivent le curseur (limités au rayon de l'œil)
+    const b = o.el.getBoundingClientRect();
+    const cx = b.left + b.width/2, cy = b.top + b.height*0.43;
+    const ang = Math.atan2(mouse.y-cy, mouse.x-cx), d = Math.min(1, Math.hypot(mouse.x-cx, mouse.y-cy)/300);
+    const off = o.er*0.45*d;
+    let px = Math.cos(ang)*off, py = Math.sin(ang)*off;
+    if (o.emote==="thinking"){ px = 0; py = -o.er*0.4; }
+    o.el.querySelectorAll(".pupil").forEach(p => p.setAttribute("transform", `translate(${px} ${py})`));
+    // clignement
+    let lid = 0;
+    if (t > o.nextBlink){ const k=(t-o.nextBlink)/140; lid = k<1?k:(k<2?2-k:0); if(k>=2) o.nextBlink = t+2000+Math.random()*4000; }
+    if (o.emote==="happy") lid = .55;
+    if (o.emote==="sleepy") lid = .9;
+    const h = (2*o.er+4)*lid;
+    o.el.querySelector(".lidL").setAttribute("height", h);
+    o.el.querySelector(".lidR").setAttribute("height", h);
+  }
+  if (running) rafId = requestAnimationFrame(frame);
+}
+rafId = requestAnimationFrame(frame);
+
+/* API de test */
+window.owlcy = {
+  setEmote(name, emote){ const o = owls.find(o=>o.el.id==="owl-"+name); o.emote = emote; o.label.textContent = emote; },
+  pause(){ running = false; cancelAnimationFrame(rafId); },
+  resume(){ if(!running){ running = true; rafId = requestAnimationFrame(frame);} },
+};
+document.addEventListener("visibilitychange", () => document.hidden ? owlcy.pause() : owlcy.resume());
+</script>
+</body>
+</html>

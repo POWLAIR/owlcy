@@ -1,0 +1,43 @@
+{
+  "auto": {
+    "connect_ms": 93.8,
+    "protocol_version": "2026-07-28",
+    "manual_result_type": "input_required",
+    "manual_input_request_keys": [
+      "confirm"
+    ],
+    "manual_message": "Déplacer a.txt vers b.txt ?",
+    "auto_accept": {
+      "protocol_version": "2026-07-28",
+      "asked": "Déplacer a.txt vers b.txt ?",
+      "text": "déplacé : a.txt → b.txt",
+      "roundtrip_ms": 82.8
+    },
+    "auto_refuse": {
+      "protocol_version": "2026-07-28",
+      "asked": "Déplacer a.txt vers b.txt ?",
+      "text": "refusé par l'utilisateur",
+      "roundtrip_ms": 78.9
+    }
+  },
+  "legacy": {
+    "connect_ms": 79.7,
+    "protocol_version": "2025-11-25",
+    "manual_result_type": "complete",
+    "manual_input_request_keys": [],
+    "auto_accept": {
+      "protocol_version": "2025-11-25",
+      "asked": "Déplacer a.txt vers b.txt ?",
+      "text": "déplacé : a.txt → b.txt",
+      "roundtrip_ms": 11.9
+    },
+    "auto_refuse": {
+      "protocol_version": "2025-11-25",
+      "asked": "Déplacer a.txt vers b.txt ?",
+      "text": "refusé par l'utilisateur",
+      "roundtrip_ms": 7.2
+    }
+  },
+  "sdk": "@modelcontextprotocol/server+client 2.2.0",
+  "bun": "1.4.0"
+}

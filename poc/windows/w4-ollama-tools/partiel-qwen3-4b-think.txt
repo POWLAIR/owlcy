@@ -1,0 +1,18 @@
+
+== qwen3:4b ==
+  simple-1     OK  [('rss_fetch', {'since_hours': 12, 'url': 'https://news.ycombinator.com/rss'})]
+  simple-1     OK  [('rss_fetch', {'url': 'https://news.ycombinator.com/rss', 'since_hours': 12})]
+  simple-1     OK  [('rss_fetch', {'url': 'https://news.ycombinator.com/rss', 'since_hours': 12})]
+  simple-2     OK  [('fs_move', {'src': 'C:/Users/Paul/Downloads/facture.pdf', 'dst': 'C:/Users/Paul/Documents/Factures/facture.pdf'})]
+  simple-2     OK  [('fs_move', {'src': 'C:/Users/Paul/Downloads/facture.pdf', 'dst': 'C:/Users/Paul/Documents/Factures/facture.pdf'})]
+  simple-2     OK  [('fs_move', {'src': 'C:/Users/Paul/Downloads/facture.pdf', 'dst': 'C:/Users/Paul/Documents/Factures/facture.pdf'})]
+  choix-1      OK  [('owl_say', {'emote': 'happy', 'text': 'la veille est prête'})]
+  choix-1      OK  [('owl_say', {'text': 'la veille est prête', 'emote': 'happy'})]
+  choix-1      OK  [('owl_say', {'text': 'la veille est prête', 'emote': 'happy'})]
+  choix-2      OK  [('weather', {'city': 'Bordeaux'})]
+  choix-2      OK  [('weather', {'city': 'Bordeaux'})]
+  choix-2      OK  [('weather', {'city': 'Bordeaux'})]
+  parallel-1   OK  [('rss_fetch', {'url': 'https://a.org/rss'}), ('rss_fetch', {'url': 'https://b.org/rss'})]
+  parallel-1   OK  [('rss_fetch', {'url': 'https://a.org/rss'}), ('rss_fetch', {'url': 'https://b.org/rss'})]
+  parallel-1   OK  [('rss_fetch', {'url': 'https://a.org/rss'}), ('rss_fetch', {'url': 'https://b.org/rss'})]
+  chained-1    KO  timed out
