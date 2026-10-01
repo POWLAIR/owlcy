@@ -15,12 +15,13 @@ Révision du 01/10/2026. La v2 contenait des notes pondérées subjectives : **e
 
 ### Ce que disent les mesures
 
-| Mesure (Windows x64) | Tauri | Electron | Preuve | Source |
+| Mesure (Windows x64 sauf mention) | Tauri | Electron | Preuve | Source |
 |---|---|---|---|---|
 | Taille du build | **≈ 3 Mo** | ≈ 384 Mo | 🔵 | Elanis, CI GitHub, maj. 09/2026 |
 | Temps de démarrage (release) | ≈ 711 ms | **≈ 206 ms** | 🔵 | Elanis |
 | **Mémoire (release)** | **≈ 317 Mo** | ≈ 278 Mo | 🔵 | Elanis — méthode : « mémoire du processus principal et de ses enfants » |
 | Mémoire (Linux, release) | **≈ 94 Mo** | ≈ 586 Mo | 🔵 | Elanis |
+| Mémoire (macOS arm64, release) | **≈ 95 Mo** | ≈ 369 Mo | 🔵 | Elanis — voir [`04-portabilite.md`](04-portabilite.md) |
 | Overlay Tauri en production (Windows 11) | 14 Mo, < 1 % CPU | — | 🟡 | Manasight (on ignore si les processus WebView2 sont comptés) |
 | « Tauri = 5× moins de RAM » | — | — | 🟡 | Articles comparatifs, sans méthode |
 

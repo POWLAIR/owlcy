@@ -5,10 +5,10 @@
 | Phase | Sprints | Release | Résultat |
 |---|---|---|---|
 | **Labo** | S0 (3 semaines) | — | Tous les points risqués prouvés ou écartés ; ADR des 4 décisions bloquantes |
-| **Fondations** | S1 | — | Dépôt, CI Windows, shell Tauri + moteur TS qui se parlent |
-| **Perchoir** | S2 | — | La chouette vit sur le bureau, bulle de validation |
-| **Moteur** | S3 | — | Config YAML, bus d'événements, hôte MCP, outils internes |
-| **Pipelines** | S4 | — | Pipeline YAML avec étapes tool / llm / human, historique |
+| **Perchoir** | S1 | — | La chouette apparaît sur mon bureau (dépôt, CI Windows, shell + moteur, Perchoir) |
+| **Chouette vivante** | S2 | — | La chouette vit et me demande la permission (bus d'événements, animations, bulle, tray) |
+| **Première pipeline** | S3 | — | Je lance une pipeline YAML et la chouette me répond (config, outils internes, pipeline) |
+| **Résumé de flux** | S4 | — | La chouette lit mes flux et me les résume, avec mon accord (hôte MCP, étapes llm et human, RSS) |
 | **MVP Veilleuse** | S5 | **v0.1.0** | Veille publiée dans Notion chaque matin |
 | **Extensible** | S6-S8 | **v0.2.0** | Dashboard, factory, déclencheurs, mode agent, skills, presets d'autonomie |
 | **Vivant** | S9-S11 | **v0.3.0** | Mécano (Claude Code), skins, éditeur de pipelines, mode vivant |

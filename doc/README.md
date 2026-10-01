@@ -23,7 +23,7 @@ Statut : **v4 (01/10/2026) — prêt pour le Sprint 0 (Labo)**. Benchmark refait
 | [`feature/`](feature/) | Concepts, Owls, pipelines & factory, personnalisation, mémoire & apprentissage |
 | [`architecture/`](architecture/) | Vue d'ensemble, système d'extension, sécurité, runtimes externes (Hermes) |
 | [`design/`](design/) | Direction artistique, skins, design des pipelines |
-| [`techno/`](techno/) | Synthèse de la stack, benchmark concret, standards, **résultats des tests** |
+| [`techno/`](techno/) | Synthèse de la stack, benchmark concret, standards, **résultats des tests**, portabilité macOS / Linux |
 | [`gestion/`](gestion/) | Méthodologie, mise en place GitHub, backlog et sprints (générés) |
 | [`roadmap/`](roadmap/) | Vue d'ensemble des phases et releases |
 | [`decisions/`](decisions/) | ADR et questions ouvertes |

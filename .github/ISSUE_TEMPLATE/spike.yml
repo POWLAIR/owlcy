@@ -1,0 +1,30 @@
+name: Spike
+description: Exploration technique avec un critère go / no-go chiffré
+title: "Spike · "
+labels: ["type:spike"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question à trancher
+      placeholder: "Est-ce que … fonctionne sous Windows avec …?"
+    validations: { required: true }
+  - type: textarea
+    id: protocol
+    attributes:
+      label: Protocole de test
+      description: Étapes reproductibles, outils, environnement
+    validations: { required: true }
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Critères GO / NO-GO
+      value: |
+        - GO si …
+        - NO-GO si …
+    validations: { required: true }
+  - type: textarea
+    id: result
+    attributes:
+      label: Résultat (à remplir à la fin)
+      description: Chiffres + décision + lien vers doc/techno/03-resultats-tests.md et ADR éventuel

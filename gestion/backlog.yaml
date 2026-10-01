@@ -2,6 +2,8 @@
 # Modifier ce fichier puis : python scripts/github_bootstrap.py docs   (régénère la doc)
 #                            python scripts/github_bootstrap.py push    (synchronise GitHub)
 # Vocabulaire : doc/lexique.md. Points : 1, 2, 3, 5, 8 (suite de Fibonacci). Capacité supposée : 12 pts / sprint.
+# Sprints découpés par résultat (tranches verticales) : chaque sprint finit sur quelque chose qu'on voit et qu'on utilise.
+# Les ids des US sont stables : US-030 peut être au S3 ou ailleurs, l'id ne donne pas le sprint.
 
 project:
   name: Owlcy
@@ -16,22 +18,89 @@ releases:
   - { version: v0.3.0, sprint: 11, name: "Vivant — Mécano, skins, éditeur de pipelines" }
   - { version: v0.4.0, sprint: 14, name: "Autonome — runtimes externes, apprentissage, paquets" }
 
+# Un sprint = un résultat : ce que je peux voir et utiliser à la fin, de bout en bout.
+#   result : titre de l'itération GitHub (« S1 · La chouette apparaît sur mon bureau »)
+#   demo   : ce qu'on joue à la revue, vérifiable par oui / non
+#   retro  : (facultatif) 1 chose à garder, 1 à changer, notée à la clôture
 sprints:
-  - { n: 0,  days: 21, goal: "Labo : prouver les points risqués et décider (go / no-go)" }
-  - { n: 1,  goal: "Fondations : dépôt, CI, squelette Tauri + moteur qui se parlent" }
-  - { n: 2,  goal: "Perchoir : la chouette vit sur le bureau Windows" }
-  - { n: 3,  goal: "Moteur : configuration, bus d'événements, hôte MCP" }
-  - { n: 4,  goal: "Pipelines : exécuter une pipeline YAML avec étape humaine et LLM" }
-  - { n: 5,  goal: "MVP : la Veilleuse publie ma veille chaque matin" }
-  - { n: 6,  goal: "Dashboard : voir, comprendre et relancer les runs" }
-  - { n: 7,  goal: "Factory & déclencheurs" }
-  - { n: 8,  goal: "Mode agent, skills et presets d'autonomie" }
-  - { n: 9,  goal: "Mécano : piloter les validations Claude Code depuis la chouette" }
-  - { n: 10, goal: "Skins & personnalité visuelle" }
-  - { n: 11, goal: "Éditeur de pipelines & mode vivant" }
-  - { n: 12, goal: "Runtimes externes (Hermes)" }
-  - { n: 13, goal: "Mémoire & Forgeronne" }
-  - { n: 14, goal: "Mode nuit & paquets partageables" }
+  - n: 0
+    days: 21
+    result: "Je sais si Owlcy est faisable (GO / NO-GO)"
+    demo:
+      - Les tests W1 à W5 et T5-T7 ont un résultat chiffré dans doc/techno/03-resultats-tests.md
+      - Les 4 décisions bloquantes ont leur ADR
+  - n: 1
+    result: "La chouette apparaît sur mon bureau"
+    demo:
+      - J'installe Owlcy depuis l'artefact de la CI
+      - La chouette apparaît en bas de l'écran ; je clique à travers et le focus ne bouge pas
+      - La fenêtre de debug affiche le ping shell <-> moteur
+  - n: 2
+    result: "La chouette vit et me demande la permission"
+    demo:
+      - La chouette respire, cligne des yeux et suit mon curseur
+      - Depuis la fenêtre de debug, j'envoie approval.requested ; la bulle s'affiche et ma réponse revient en approval.answered
+      - Je change de coin et je masque la chouette depuis le tray
+  - n: 3
+    result: "Je lance une pipeline YAML et la chouette me répond"
+    demo:
+      - "Je pose pipelines/bonjour.yaml (http.fetch -> owl.say) et je la lance"
+      - La chouette passe en working, puis parle dans sa bulle
+      - Je modifie le fichier ; il est rechargé sans redémarrer
+  - n: 4
+    result: "La chouette lit mes flux et me les résume, avec mon accord"
+    demo:
+      - Une pipeline lit 3 flux RSS, les résume avec un modèle Ollama et me demande validation dans la bulle
+      - J'accepte, la chouette affiche le résumé ; je refuse, le run s'arrête proprement
+  - n: 5
+    result: "La Veilleuse publie ma veille chaque matin"
+    demo:
+      - J'installe la v0.1.0 depuis la GitHub Release
+      - À 8 h, le digest de 5 points avec sources est dans ma base Notion, après ma validation
+      - Cinq jours ouvrés d'affilée sans intervention
+  - n: 6
+    result: "Je vois ce qu'ont fait mes Owls et je relance une erreur"
+    demo:
+      - Je retrouve le run de ce matin et le détail de chaque étape
+      - Je provoque une erreur, je clique sur la chouette étourdie et je relance depuis l'étape fautive
+  - n: 7
+    result: "Je crée une pipeline depuis un modèle et je la déclenche comme je veux"
+    demo:
+      - Je crée une pipeline depuis un modèle en remplissant un formulaire, sans écrire de YAML
+      - Je la lance par raccourci, en glissant un fichier sur la chouette, puis quand un fichier arrive dans Téléchargements
+  - n: 8
+    result: "Je confie une tâche libre à une Owl, qui reste dans ses limites"
+    demo:
+      - Je demande une tâche libre ; l'Owl choisit ses outils et me demande validation avant une action sensible
+      - Un flux RSS piégé ne déclenche aucune action sans validation
+  - n: 9
+    result: "Je valide les commandes de Claude Code depuis la chouette"
+    demo:
+      - Une session Claude Code demande une permission ; je réponds dans la bulle et Claude Code continue
+      - Owlcy éteint, Claude Code n'est pas bloqué
+  - n: 10
+    result: "Chaque Owl a sa propre apparence"
+    demo:
+      - Je modifie le skin d'une Owl dans l'éditeur et je vois toutes ses emotes en direct
+  - n: 11
+    result: "Je vois mes pipelines en schéma et la chouette suit le run"
+    demo:
+      - J'ouvre la Veille du matin en schéma, je déplace une étape, le YAML est à jour
+      - Pendant un run, la chouette avance d'étape en étape
+  - n: 12
+    result: "Une Owl peut utiliser Hermes comme cerveau"
+    demo:
+      - Une Owl en runtime hermes fait une tâche ; sa progression et ses approbations passent par la bulle
+  - n: 13
+    result: "Mes Owls se souviennent, et la Forgeronne crée des intégrations"
+    demo:
+      - Une Owl réutilise une préférence notée dans son carnet la semaine d'avant
+      - La Forgeronne génère une intégration, je relis le diff et je l'accepte
+  - n: 14
+    result: "Owlcy apprend la nuit et je partage mes Owls"
+    demo:
+      - Le matin, je trouve des propositions de skills issues du mode nuit
+      - J'installe le paquet signé d'une Owl après avoir vu ses permissions
 
 areas: [shell, engine, ui, design, integrations, pipelines, security, llm, devops, doc]
 
@@ -53,7 +122,7 @@ epics:
   - { id: E14, title: "Partage", desc: "Mode nuit, paquets signés." }
 
 stories:
-  # ───────────────────────── Sprint 0 — Labo ─────────────────────────
+  # ───────────────────────── S0 · Je sais si Owlcy est faisable (GO / NO-GO) ─────────────────────────
   - id: US-001
     type: chore
     title: Créer le dépôt, le GitHub Project et importer le backlog
@@ -65,8 +134,8 @@ stories:
     story: En tant que développeur, je veux un dépôt et un board GitHub prêts, afin de suivre le projet sprint par sprint.
     ac:
       - Le dépôt POWLAIR/owlcy existe avec la doc (dossier doc/) et le labo (poc/)
-      - Labels, milestones (sprints) et issues sont créés par scripts/github_bootstrap.py
-      - Le GitHub Project a les champs Status, Priority, Estimate, Epic et 3 vues (Board du sprint, Table backlog, Roadmap)
+      - Labels, milestones (une par release), epics et issues (en sous-issues des epics) sont créés par scripts/github_bootstrap.py
+      - Le GitHub Project a le champ Sprint de type Iteration (titre = résultat du sprint), les champs Status, Priority, Estimate, Epic, Release, un README, et les vues Sprint en cours, Prochain sprint, Backlog, Roadmap, Epics
   - id: US-002
     type: spike
     title: "W1 — Perchoir Tauri sous Windows (overlay, focus, click-through)"
@@ -157,7 +226,7 @@ stories:
       - ADR-001 moteur TS sidecar vs Rust ; ADR-002 MCP + outils internes ; ADR-003 Windows natif + WSL ; ADR-004 moteur de pipelines maison
       - Chaque ADR cite les résultats de tests qui la justifient
 
-  # ───────────────────────── Sprint 1 — Fondations ─────────────────────────
+  # ───────────────────────── S1 · La chouette apparaît sur mon bureau ─────────────────────────
   - id: US-010
     type: chore
     title: Monorepo et conventions de code
@@ -197,34 +266,36 @@ stories:
       - Le moteur (binaire Bun) est embarqué comme sidecar et lancé au démarrage
       - Canal JSON-RPC shell <-> moteur (stdio), ping aller-retour affiché dans une fenêtre de debug
       - Si le moteur plante, le shell le relance et le signale (événement engine.restarted)
+      - Au démarrage, le shell déclare au moteur et à l'UI les fonctions de plateforme disponibles (PlatformFeature) et fournit les répertoires de données (doc/techno/04-portabilite.md §8)
       - Aucun port réseau ouvert (vérifié avec netstat)
-  - id: US-013
-    type: chore
-    title: Journalisation unifiée (shell + moteur)
-    epic: E1
-    sprint: 1
-    points: 2
-    prio: P1
-    area: [engine, shell]
-    story: En tant que développeur, je veux des logs lisibles au même endroit, afin de diagnostiquer vite.
-    ac:
-      - Logs JSON dans %APPDATA%/Owlcy/logs, rotation, niveau réglable
-      - Aucun secret dans les logs (test)
-
-  # ───────────────────────── Sprint 2 — Perchoir ─────────────────────────
   - id: US-020
     type: us
     title: Voir la chouette sur mon bureau sans qu'elle me gêne
     epic: E2
-    sprint: 2
-    points: 5
+    sprint: 1
+    points: 2
     prio: P0
     area: [shell, ui]
     story: En tant qu'utilisateur, je veux une chouette en bas de l'écran qui ne vole jamais le focus et laisse passer mes clics, afin de l'avoir toujours là sans être dérangé.
     ac:
       - Reprise du code validé en W1 (fenêtre petite, WS_EX_NOACTIVATE, NonRudeHWND, hit-test)
-      - Position réglable (coin, écran) et mémorisée
-      - Pas dans Alt+Tab ni la barre des tâches ; icône dans le tray (Quitter, Masquer)
+      - Le code du Perchoir passe par une interface par plateforme, pas dispersé dans main.rs
+      - Chouette statique (SVG) ; pas dans Alt+Tab ni la barre des tâches
+
+  # ───────────────────────── S2 · La chouette vit et me demande la permission ─────────────────────────
+  - id: US-031
+    type: us
+    title: Bus d'événements moteur -> shell -> UI
+    epic: E3
+    sprint: 2
+    points: 2
+    prio: P0
+    area: [engine, ui]
+    story: En tant que développeur, je veux que tout passe par des événements typés, afin d'ajouter des fonctionnalités sans toucher au cœur.
+    ac:
+      - Événements typés (run.*, step.*, approval.*, emote.*, engine.*) partagés entre moteur et UI
+      - La chouette s'anime uniquement via ces événements
+      - La fenêtre de debug permet d'émettre n'importe quel événement à la main
   - id: US-021
     type: us
     title: Une chouette vivante (respiration, clignements, regard)
@@ -237,6 +308,7 @@ stories:
     ac:
       - Composant React Owl en SVG procédural, paramétré par un skin (couleurs, formes)
       - Yeux qui suivent le curseur sur tout l'écran (position envoyée par le shell)
+      - Sans la fonction de plateforme « curseur global », les yeux suivent le curseur seulement au survol du Perchoir
       - 30 fps en idle, animation coupée quand la chouette est masquée (mesure < 0,5 ms/s en pause)
   - id: US-022
     type: us
@@ -262,8 +334,21 @@ stories:
     ac:
       - Événement approval.requested -> bulle ; réponse -> approval.answered
       - La bulle ne vole pas le focus ; fermeture auto configurable ; file d'attente si plusieurs demandes
+  - id: US-024
+    type: us
+    title: Placer la chouette et la contrôler depuis le tray
+    epic: E2
+    sprint: 2
+    points: 3
+    prio: P1
+    area: [shell, ui]
+    story: En tant qu'utilisateur, je veux choisir où se perche la chouette et pouvoir la masquer ou quitter depuis le tray, afin qu'elle s'adapte à mon bureau.
+    ac:
+      - Position réglable (coin, écran) et mémorisée
+      - Icône dans le tray (Masquer / Afficher, Quitter)
+      - Sans la fonction de plateforme tray ou position, l'application reste utilisable (menu sur la chouette à la place)
 
-  # ───────────────────────── Sprint 3 — Moteur ─────────────────────────
+  # ───────────────────────── S3 · Je lance une pipeline YAML et la chouette me répond ─────────────────────────
   - id: US-030
     type: us
     title: Configuration en fichiers YAML validés et rechargés à chaud
@@ -274,34 +359,9 @@ stories:
     area: [engine]
     story: En tant qu'utilisateur avancé, je veux décrire Owls, intégrations et pipelines en YAML, afin de tout personnaliser sans coder.
     ac:
-      - Dossier %APPDATA%/Owlcy avec owls/, integrations/, skills/, pipelines/, skins/
+      - Répertoire de données fourni par le shell (%APPDATA%\Owlcy sous Windows), avec owls/, integrations/, skills/, pipelines/, skins/ ; aucun chemin Windows en dur dans le moteur
       - JSON Schemas publiés dans packages/schemas ; erreur de validation -> pelote avec la ligne fautive
       - Modification d'un fichier -> rechargement sans redémarrer
-  - id: US-031
-    type: us
-    title: Bus d'événements moteur -> shell -> UI
-    epic: E3
-    sprint: 3
-    points: 2
-    prio: P0
-    area: [engine, ui]
-    story: En tant que développeur, je veux que tout passe par des événements typés, afin d'ajouter des fonctionnalités sans toucher au cœur.
-    ac:
-      - Événements typés (run.*, step.*, approval.*, emote.*, engine.*) partagés entre moteur et UI
-      - La chouette s'anime uniquement via ces événements
-  - id: US-032
-    type: us
-    title: Hôte MCP (démarrage à la demande, arrêt après inactivité)
-    epic: E3
-    sprint: 3
-    points: 5
-    prio: P0
-    area: [engine, integrations]
-    story: En tant qu'utilisateur, je veux brancher n'importe quel serveur MCP via un owlcy.yaml, afin d'étendre Owlcy sans coder.
-    ac:
-      - Intégration déclarée (command, args, env, target windows|wsl) -> outils listés
-      - Processus lancé au premier appel, arrêté après N minutes d'inactivité (mesure RAM avant/après)
-      - Élicitation MCP relayée en demande de validation (bulle)
   - id: US-033
     type: us
     title: Outils internes de base
@@ -314,33 +374,47 @@ stories:
     ac:
       - owl.say, http.fetch, fs.read, fs.write, fs.move disponibles sans processus séparé
       - Même interface (schéma d'entrée/sortie) que les outils MCP
-
-  # ───────────────────────── Sprint 4 — Pipelines ─────────────────────────
   - id: US-040
     type: us
     title: Exécuter une pipeline YAML séquentielle
     epic: E4
-    sprint: 4
+    sprint: 3
     points: 5
     prio: P0
     area: [pipelines]
     story: En tant qu'utilisateur, je veux lancer une pipeline décrite en YAML, afin d'automatiser une tâche répétitive.
     ac:
-      - Étapes tool et llm ; foreach ; when ; variables entre étapes en JSONata
+      - Étapes tool ; foreach ; when ; variables entre étapes en JSONata (étapes llm au S4)
       - Événements step.* émis ; la chouette passe en working pendant le run
       - Dry-run disponible (aucun effet de bord)
-  - id: US-041
-    type: us
-    title: Étape humaine dans une pipeline
-    epic: E4
-    sprint: 4
+  - id: US-013
+    type: chore
+    title: Journalisation unifiée (shell + moteur)
+    epic: E1
+    sprint: 3
     points: 2
-    prio: P0
-    area: [pipelines, ui]
-    story: En tant qu'utilisateur, je veux qu'une pipeline puisse s'arrêter pour me demander mon avis, afin de valider avant une action.
+    prio: P1
+    area: [engine, shell]
+    story: En tant que développeur, je veux des logs lisibles au même endroit, afin de diagnostiquer vite.
     ac:
-      - Étape human -> bulle -> reprise ou arrêt selon la réponse
-      - Délai d'expiration configurable
+      - Logs JSON dans le répertoire de données fourni par le shell (logs/), rotation, niveau réglable
+      - Chaque run a un identifiant repris dans tous ses logs
+      - Aucun secret dans les logs (test)
+
+  # ───────────────────────── S4 · La chouette lit mes flux et me les résume, avec mon accord ─────────────────────────
+  - id: US-032
+    type: us
+    title: Hôte MCP (démarrage à la demande, arrêt après inactivité)
+    epic: E3
+    sprint: 4
+    points: 5
+    prio: P0
+    area: [engine, integrations]
+    story: En tant qu'utilisateur, je veux brancher n'importe quel serveur MCP via un owlcy.yaml, afin d'étendre Owlcy sans coder.
+    ac:
+      - Intégration déclarée (command, args, env, target windows|wsl) -> outils listés
+      - Processus lancé au premier appel, arrêté après N minutes d'inactivité (mesure RAM avant/après)
+      - Élicitation MCP relayée en demande de validation (bulle)
   - id: US-042
     type: us
     title: Étapes LLM avec Ollama et Claude
@@ -354,25 +428,23 @@ stories:
       - Provider Ollama et Anthropic via AI SDK ; modèle par défaut = celui choisi en W4
       - Sortie structurée validée par schéma + 1 retry automatique
       - Tokens et durée enregistrés dans le run
-  - id: US-043
+  - id: US-041
     type: us
-    title: Historique des runs en SQLite
+    title: Étape humaine dans une pipeline
     epic: E4
     sprint: 4
     points: 2
-    prio: P1
-    area: [engine]
-    story: En tant qu'utilisateur, je veux garder la trace de chaque run, afin de comprendre ce qui s'est passé.
+    prio: P0
+    area: [pipelines, ui]
+    story: En tant qu'utilisateur, je veux qu'une pipeline puisse s'arrêter pour me demander mon avis, afin de valider avant une action.
     ac:
-      - Runs, étapes, entrées/sorties, durées, décisions de permission stockés
-      - Commande CLI owlcy runs list / show <id>
-
-  # ───────────────────────── Sprint 5 — MVP Veilleuse ─────────────────────────
+      - Étape human -> bulle -> reprise ou arrêt selon la réponse
+      - Délai d'expiration configurable
   - id: US-050
     type: us
     title: Intégration RSS
     epic: E5
-    sprint: 5
+    sprint: 4
     points: 2
     prio: P0
     area: [integrations]
@@ -380,6 +452,8 @@ stories:
     ac:
       - Outil rss.fetch(url, since_hours) ; sortie marquée non fiable (untrusted-output)
       - Tests sur 3 flux réels (RSS et Atom)
+
+  # ───────────────────────── S5 · La Veilleuse publie ma veille chaque matin ─────────────────────────
   - id: US-051
     type: us
     title: Publication dans Notion
@@ -429,6 +503,18 @@ stories:
     ac:
       - Le Permission Guard intercepte chaque appel d'outil selon permissions dans owl.yaml
       - ask -> bulle ; deny -> pelote explicite ; décision journalisée dans le run
+  - id: US-043
+    type: us
+    title: Historique des runs en SQLite
+    epic: E4
+    sprint: 5
+    points: 2
+    prio: P1
+    area: [engine]
+    story: En tant qu'utilisateur, je veux garder la trace de chaque run, afin de comprendre ce qui s'est passé.
+    ac:
+      - Runs, étapes, entrées/sorties, durées, décisions de permission stockés
+      - Commande CLI owlcy runs list / show <id>
   - id: US-055
     type: chore
     title: Release v0.1.0 (installeur + notes)
@@ -442,7 +528,7 @@ stories:
       - Installeur NSIS publié en GitHub Release, notes générées depuis les PR
       - Critère de sortie du MVP vérifié pendant 5 jours ouvrés d'affilée
 
-  # ───────────────────────── Sprint 6 — Dashboard ─────────────────────────
+  # ───────────────────────── S6 · Je vois ce qu'ont fait mes Owls et je relance une erreur ─────────────────────────
   - { id: US-060, type: us, title: "Liste et détail des runs", epic: E7, sprint: 6, points: 5, prio: P1, area: [ui],
       story: "En tant qu'utilisateur, je veux voir mes runs et le détail de chaque étape, afin de comprendre ce qu'a fait une Owl.",
       ac: ["Liste filtrable (Owl, pipeline, statut, date)", "Détail - entrées/sorties par étape, durée, tokens, décisions"] }
@@ -453,18 +539,18 @@ stories:
       story: "En tant qu'utilisateur, je veux gérer mes clés et réglages dans une fenêtre, afin de ne pas éditer de fichiers pour ça.",
       ac: ["Ajout/suppression de secrets (Credential Manager), jamais réaffichés en clair", "Modèle par défaut, position du perchoir, démarrage auto"] }
 
-  # ───────────────────────── Sprint 7 — Factory & déclencheurs ─────────────────────────
+  # ───────────────────────── S7 · Je crée une pipeline depuis un modèle et je la déclenche comme je veux ─────────────────────────
   - { id: US-070, type: us, title: "Instancier une pipeline depuis un modèle", epic: E8, sprint: 7, points: 5, prio: P1, area: [ui, pipelines],
       story: "En tant qu'utilisateur, je veux créer une pipeline à partir d'un modèle et d'un formulaire, afin de ne pas écrire de YAML.",
       ac: ["Formulaire généré depuis le JSON Schema des params (types string, number, bool, date, file, list, secret-ref)", "La pipeline créée est un fichier YAML lisible"] }
   - { id: US-071, type: us, title: "Déclencheurs hotkey, drop et file_watch", epic: E8, sprint: 7, points: 3, prio: P1, area: [shell, engine],
       story: "En tant qu'utilisateur, je veux lancer une pipeline par raccourci, en glissant un fichier sur la chouette ou quand un fichier arrive, afin d'aller vite.",
-      ac: ["Raccourci global configurable", "Glisser-déposer sur la chouette -> choix des pipelines compatibles", "Surveillance d'un dossier (ex. Téléchargements)"] }
+      ac: ["Raccourci global configurable", "Glisser-déposer sur la chouette -> choix des pipelines compatibles", "Surveillance d'un dossier (ex. Téléchargements)", "Sans la fonction de plateforme hotkeys globales, le raccourci est désactivé et signalé dans les réglages"] }
   - { id: US-072, type: us, title: "skip_if_unchanged et continuity", epic: E4, sprint: 7, points: 2, prio: P2, area: [pipelines],
       story: "En tant qu'utilisateur, je veux qu'une pipeline planifiée n'appelle pas le LLM si rien n'a changé, afin d'économiser des tokens.",
       ac: ["Option skip_if_unchanged sur un step", "Variable previous.output disponible"] }
 
-  # ───────────────────────── Sprint 8 — Mode agent & skills ─────────────────────────
+  # ───────────────────────── S8 · Je confie une tâche libre à une Owl, qui reste dans ses limites ─────────────────────────
   - { id: US-080, type: us, title: "Mode agent (ToolLoopAgent) borné aux outils de l'Owl", epic: E9, sprint: 8, points: 5, prio: P1, area: [llm, engine],
       story: "En tant qu'utilisateur, je veux demander librement quelque chose à une Owl, afin qu'elle choisisse elle-même les outils.",
       ac: ["Limite d'étapes et de budget tokens", "needsApproval branché sur le Permission Guard"] }
@@ -478,7 +564,7 @@ stories:
       story: "En tant qu'utilisateur, je veux voir un plan avant exécution et des contrôles entre étapes, afin d'éviter les dérives.",
       ac: ["Étape plan -> bulle d'approbation du plan", "Étape validate (assertion JSONata) -> arrêt propre si faux"] }
 
-  # ───────────────────────── Sprint 9 — Mécano ─────────────────────────
+  # ───────────────────────── S9 · Je valide les commandes de Claude Code depuis la chouette ─────────────────────────
   - { id: US-090, type: us, title: "Recevoir les hooks Claude Code", epic: E10, sprint: 9, points: 3, prio: P2, area: [engine, security],
       story: "En tant que développeur, je veux que la chouette voie mes sessions Claude Code, afin de suivre ce qu'elles font.",
       ac: ["Endpoint 127.0.0.1 + token, installé avec sauvegarde et diff de la config Claude Code", "Si Owlcy ne répond pas, Claude Code n'est jamais bloqué"] }
@@ -486,7 +572,7 @@ stories:
       story: "En tant que développeur, je veux autoriser ou refuser une commande Claude Code depuis la chouette, afin de ne pas basculer de fenêtre.",
       ac: ["PermissionRequest -> bulle -> allow/deny renvoyé", "Délai dépassé -> décision laissée à Claude Code"] }
 
-  # ───────────────────────── Sprint 10 — Skins ─────────────────────────
+  # ───────────────────────── S10 · Chaque Owl a sa propre apparence ─────────────────────────
   - { id: US-100, type: us, title: "Skins paramétriques + éditeur live", epic: E11, sprint: 10, points: 5, prio: P2, area: [design, ui],
       story: "En tant qu'utilisateur, je veux personnaliser l'apparence de chaque Owl, afin de les reconnaître d'un coup d'œil.",
       ac: ["skin.yaml (forme, couleurs, motif, accessoires) avec bornes et contrôle de contraste", "Aperçu live de toutes les emotes"] }
@@ -494,7 +580,7 @@ stories:
       story: "En tant qu'utilisateur, je veux des sons discrets et une chouette dont l'humeur suit l'heure et mon activité, afin qu'elle paraisse vivante.",
       ac: ["Pack de sons désactivable", "Humeur - plus vive la nuit, somnolente après inactivité"] }
 
-  # ───────────────────────── Sprint 11 — Éditeur de pipelines ─────────────────────────
+  # ───────────────────────── S11 · Je vois mes pipelines en schéma et la chouette suit le run ─────────────────────────
   - { id: US-110, type: us, title: "Éditeur visuel de pipelines (React Flow)", epic: E11, sprint: 11, points: 8, prio: P2, area: [ui, pipelines],
       story: "En tant qu'utilisateur, je veux voir et modifier une pipeline sous forme de schéma, afin de la comprendre sans lire le YAML.",
       ac: ["Aller-retour YAML <-> graphe sans perte", "Nœuds par type d'étape, validation en direct"] }
@@ -502,7 +588,7 @@ stories:
       story: "En tant qu'utilisateur, je veux voir la chouette avancer d'étape en étape pendant un run, afin de suivre l'exécution.",
       ac: ["Animation pilotée par step.*", "Erreur -> chute + pelote cliquable"] }
 
-  # ───────────────────────── Sprint 12 — Runtimes externes ─────────────────────────
+  # ───────────────────────── S12 · Une Owl peut utiliser Hermes comme cerveau ─────────────────────────
   - { id: US-120, type: spike, title: "W6 — Spike Owl Hermes (TUI Gateway dans WSL)", epic: E12, sprint: 12, points: 3, prio: P2, area: [engine],
       story: "En tant que développeur, je veux tester Hermes comme cerveau d'une Owl, afin de décider de son intégration.",
       ac: ["Progression et approbations Hermes affichées dans la bulle", "Mesures - latence, RAM, stabilité sur 1 semaine ; ADR"] }
@@ -510,7 +596,7 @@ stories:
       story: "En tant qu'utilisateur, je veux choisir le runtime de chaque Owl, afin de profiter d'autres agents sans quitter Owlcy.",
       ac: ["runtime - native | hermes dans owl.yaml", "Les skills créées par Hermes arrivent en brouillon"] }
 
-  # ───────────────────────── Sprint 13 — Mémoire & Forgeronne ─────────────────────────
+  # ───────────────────────── S13 · Mes Owls se souviennent, et la Forgeronne crée des intégrations ─────────────────────────
   - { id: US-130, type: us, title: "Carnet et archive par Owl", epic: E13, sprint: 13, points: 5, prio: P2, area: [engine, llm],
       story: "En tant qu'utilisateur, je veux qu'une Owl se souvienne de l'essentiel, afin de ne pas tout lui réexpliquer.",
       ac: ["Carnet Markdown plafonné, éditable dans le dashboard", "Archive FTS5 cherchable", "Écriture uniquement via le moteur, après validation"] }
@@ -518,7 +604,7 @@ stories:
       story: "En tant qu'utilisateur, je veux décrire une intégration et la voir générée, afin d'étendre Owlcy en quelques minutes.",
       ac: ["Cherche d'abord un serveur MCP existant", "Génère code + owlcy.yaml + test ; dry-run ; diff ; validation humaine"] }
 
-  # ───────────────────────── Sprint 14 — Mode nuit & paquets ─────────────────────────
+  # ───────────────────────── S14 · Owlcy apprend la nuit et je partage mes Owls ─────────────────────────
   - { id: US-140, type: us, title: "Mode nuit : consolidation et propositions de skills", epic: E14, sprint: 14, points: 3, prio: P3, area: [llm],
       story: "En tant qu'utilisateur, je veux qu'Owlcy apprenne pendant que le PC est inactif, afin de trouver des améliorations le matin.",
       ac: ["Trigger idle ; condensation du carnet ; propositions en file de revue", "Désactivable par Owl"] }
